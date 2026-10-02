@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class UrlUpdater {
 
     private static final String CONFIG_URL =
-        "https://raw.githubusercontent.com/diziverse-app/dashboard/main/url.json";
+        "https://raw.githubusercontent.com/renalong89-max/diziverse-dashboard-app/main/url.json";
 
     /** Result of an update check. */
     public static class Result {
