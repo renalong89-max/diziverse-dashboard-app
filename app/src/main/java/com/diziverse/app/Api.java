@@ -86,28 +86,28 @@ public class Api {
         return null;
     }
 
-    /** Server msg codes -> Roman Urdu. */
+    /** Server msg codes -> English. */
     public static String trMsg(String msg) {
-        if (msg == null) return "Kuch garbar hui — dobara try karein.";
+        if (msg == null) return "Something went wrong — try again.";
         switch (msg) {
             case "ok":
-                return "Ho gaya! Link queue mein daal diya.";
+                return "Done! Link added to the queue.";
             case "bad":
-                return "Ye YouTube link nahi lag raha.";
+                return "That does not look like a YouTube link.";
             case "notoken":
-                return "Channel ka YouTube connect nahi hai.";
+                return "Channel YouTube is not connected.";
             case "dup":
-                return "Ye link pehle se queue mein hai.";
+                return "This link is already in the queue.";
             case "alreadydone":
-                return "Ye video pehle hi upload ho chuki hai.";
+                return "This video has already been uploaded.";
             case "gone":
-                return "Ye video YouTube par nahi mili.";
+                return "This video was not found on YouTube.";
             case "unplayable":
-                return "Ye video server se download nahi ho sakti.";
+                return "The server cannot download this video.";
             case "badcookies":
-                return "Server cookies expire — refresh chahiye.";
+                return "Server cookies expired — refresh needed.";
             case "retry":
-                return "Ho gaya! Dobara queue mein daal diya.";
+                return "Done! Added back to the queue.";
             default:
                 return "Server: " + msg;
         }

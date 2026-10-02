@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.util.Linkify;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +34,7 @@ public class MainActivity extends Activity {
 
     private TextView tvChTitle, tvStatus, tvSubmitMsg;
     private EditText etLink;
-    private LinearLayout llQueue, llDone, llFailed;
+    private LinearLayout llPending, llQueue, llDone, llFailed;
     private Button btnCh1, btnCh2;
 
     @Override
@@ -46,7 +45,7 @@ public class MainActivity extends Activity {
             // If that works, skip the manual setup screen entirely.
             // Show a loading message while the background fetch runs.
             TextView loading = new TextView(this);
-            loading.setText("Server se connect ho raha hai...");
+            loading.setText(R.string.connecting);
             loading.setTextSize(18);
             loading.setGravity(Gravity.CENTER);
             int pad = (int) (32 * getResources().getDisplayMetrics().density);
@@ -83,6 +82,7 @@ public class MainActivity extends Activity {
         tvStatus = findViewById(R.id.tvStatus);
         tvSubmitMsg = findViewById(R.id.tvSubmitMsg);
         etLink = findViewById(R.id.etLink);
+        llPending = findViewById(R.id.llPending);
         llQueue = findViewById(R.id.llQueue);
         llDone = findViewById(R.id.llDone);
         llFailed = findViewById(R.id.llFailed);
@@ -170,25 +170,43 @@ public class MainActivity extends Activity {
             tvStatus.setTextColor(Color.parseColor("#2E7D32"));
         }
 
-        fillSimpleList(llQueue, d.queue, R.string.empty_queue, false);
-        fillSimpleList(llDone, d.done, R.string.empty_done, true);
+        fillTitleList(llQueue, d.queue, R.string.empty_queue);
+        fillTitleList(llDone, d.done, R.string.empty_done);
         fillFailedList(llFailed, d.failed);
+        fillPendingList();
     }
 
-    private void fillSimpleList(LinearLayout ll, java.util.List<String> items, int emptyRes, boolean linkify) {
+    /** Pending videos from the watcher's GitHub feed (titles included). */
+    private void fillPendingList() {
+        llPending.removeAllViews();
+        llPending.addView(makeText(getString(R.string.loading), 13, "#757575"));
+        PendingFetcher.fetch(items -> {
+            if (llPending == null) return;
+            llPending.removeAllViews();
+            if (items.isEmpty()) {
+                llPending.addView(makeText(getString(R.string.empty_pending), 13, "#757575"));
+                return;
+            }
+            for (PendingFetcher.Item it : items) {
+                TextView tv = makeText(it.title, 13, "#212121");
+                tv.setPadding(0, 6, 0, 6);
+                llPending.addView(tv);
+            }
+        });
+    }
+
+    /** Show video TITLES instead of raw links (resolved via cache/oEmbed). */
+    private void fillTitleList(LinearLayout ll, java.util.List<String> items, int emptyRes) {
         ll.removeAllViews();
         if (items.isEmpty()) {
             ll.addView(makeText(getString(emptyRes), 13, "#757575"));
             return;
         }
-        for (String s : items) {
-            TextView tv = makeText(s, 13, "#212121");
+        for (String url : items) {
+            final TextView tv = makeText(getString(R.string.title_loading), 13, "#212121");
             tv.setPadding(0, 6, 0, 6);
-            if (linkify) {
-                tv.setAutoLinkMask(Linkify.WEB_URLS);
-                tv.setLinksClickable(true);
-            }
             ll.addView(tv);
+            TitleCache.resolveUrl(this, url, (videoId, title) -> tv.setText(title));
         }
     }
 
@@ -204,11 +222,13 @@ public class MainActivity extends Activity {
             row.setGravity(Gravity.CENTER_VERTICAL);
             row.setPadding(0, 4, 0, 4);
 
-            TextView tv = makeText(link, 13, "#212121");
+            final TextView tv = makeText(getString(R.string.title_loading), 13, "#212121");
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                     0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
             tv.setLayoutParams(lp);
             row.addView(tv);
+            // Show the video TITLE, not the link. Retry still uses the link.
+            TitleCache.resolveUrl(this, link, (videoId, title) -> tv.setText(title));
 
             Button retry = new Button(this);
             retry.setText(R.string.retry);
@@ -312,7 +332,7 @@ public class MainActivity extends Activity {
                             if (!channels.has("ch2")) throw new Exception("no ch2");
                             Prefs.setServerUrl(MainActivity.this, url);
                             runOnUiThread(() -> {
-                                tvSubmitMsg.setText("Save ho gaya.");
+                                tvSubmitMsg.setText(R.string.saved);
                                 refresh();
                             });
                         } catch (Exception e) {
