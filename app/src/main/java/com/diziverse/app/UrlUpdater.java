@@ -16,6 +16,12 @@ public class UrlUpdater {
     private static final String CONFIG_URL =
         "https://raw.githubusercontent.com/renalong89-max/diziverse-dashboard-app/main/url.json";
 
+    // Fallback: embedded current URL. If the config fetch fails on first run
+    // (network blocked etc.), the app still works out of the box.
+    // Updated with each release; UrlUpdater refreshes it afterwards.
+    private static final String FALLBACK_URL =
+        "https://entity-acknowledged-ridge-individual.trycloudflare.com/?key=ZddxHAgZfdpiuHKlQ0ZkkQ";
+
     /** Result of an update check. */
     public static class Result {
         public final boolean updated;
@@ -37,6 +43,12 @@ public class UrlUpdater {
         String stored = Prefs.getServerUrl(ctx);
         String remote = fetchRemoteUrl();
         if (remote == null) {
+            // Config unreachable. On first run, use the embedded fallback
+            // so the app works out of the box without manual paste.
+            if (stored == null) {
+                Prefs.setServerUrl(ctx, FALLBACK_URL);
+                return new Result(true, FALLBACK_URL, "config-unreachable-fallback");
+            }
             // Could not reach the config endpoint — keep using stored URL.
             return new Result(false, stored, "config-unreachable");
         }
