@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.diziverse.app-debug-4:/drawable_ic_play.xml.flat",
+        "source": "com.diziverse.app-main-6:/drawable/ic_play.xml"
+    },
+    {
+        "merged": "com.diziverse.app-debug-4:/layout_activity_main.xml.flat",
+        "source": "com.diziverse.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.diziverse.app-debug-4:/layout_activity_setup.xml.flat",
+        "source": "com.diziverse.app-main-6:/layout/activity_setup.xml"
+    },
+    {
+        "merged": "com.diziverse.app-debug-4:/drawable_edit_bg.xml.flat",
+        "source": "com.diziverse.app-main-6:/drawable/edit_bg.xml"
+    },
+    {
+        "merged": "com.diziverse.app-debug-4:/drawable_ic_launcher.xml.flat",
+        "source": "com.diziverse.app-main-6:/drawable/ic_launcher.xml"
+    }
+]

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#8E2424</color>
+    <color name="primary_dark">#5F1717</color>
+    <color name="accent">#C62828</color>
+    <color name="bg">#FAF6F1</color>
+    <color name="card">#FFFFFF</color>
+    <color name="text">#212121</color>
+    <color name="text_light">#757575</color>
+    <color name="free">#2E7D32</color>
+    <color name="busy">#E65100</color>
+</resources>

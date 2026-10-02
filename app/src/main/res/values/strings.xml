@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DiziVerse</string>
+
+    <string name="setup_title">DiziVerse</string>
+    <string name="setup_sub">Server se connect karein</string>
+    <string name="setup_desc">Neeche server ka link paste karein (wahi ?key= wala link jo dashboard ke liye milta hai):</string>
+    <string name="setup_hint">https://….trycloudflare.com/?key=…</string>
+    <string name="connect">Connect karein</string>
+    <string name="checking">Check ho raha hai…</string>
+    <string name="connect_bad_link">Sahi link paste karein (?key= wala).</string>
+    <string name="connect_fail">Link kaam nahi kar raha — sahi link paste kar ke dobara try karein.</string>
+
+    <string name="channel1">Channel 1</string>
+    <string name="channel2">Channel 2</string>
+    <string name="settings">Settings</string>
+    <string name="refresh">Refresh karo</string>
+    <string name="loading">Load ho raha hai…</string>
+    <string name="status_free">Free hai</string>
+    <string name="status_running">Chal rahi hai</string>
+    <string name="conn_fail">Server se connect nahi ho saka — link check karein (Settings).</string>
+
+    <string name="submit_title">Naya link</string>
+    <string name="submit_hint">YouTube link paste karein</string>
+    <string name="submit_btn">Queue mein daalo</string>
+    <string name="submit_empty">Pehle link paste karein.</string>
+    <string name="submit_sending">Bhej raha hun…</string>
+    <string name="submit_fail">Server se baat nahi ho saki.</string>
+
+    <string name="queue_title">Queue</string>
+    <string name="done_title">Upload ho gayi</string>
+    <string name="failed_title">Failed</string>
+    <string name="empty_queue">Queue khaali hai.</string>
+    <string name="empty_done">Abhi koi video upload nahi hui.</string>
+    <string name="empty_failed">Koi failed video nahi.</string>
+    <string name="retry">Retry</string>
+
+    <string name="settings_title">Server ka link</string>
+    <string name="save">Save karo</string>
+    <string name="cancel">Cancel</string>
+</resources>

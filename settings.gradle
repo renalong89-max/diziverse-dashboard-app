@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        maven { url = uri("file:///home/hatch/workspace/.m2local") }
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url = uri("file:///home/hatch/workspace/.m2local") }
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "DiziVerse"
+include ':app'

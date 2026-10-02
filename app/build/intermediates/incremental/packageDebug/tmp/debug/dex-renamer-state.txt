@@ -1,0 +1,7 @@
+#Fri Sep 25 19:09:22 UTC 2026
+base.1=/home/hatch/workspace/diziverse-app/app/build/intermediates/dex/debug/mergeProjectDexDebug/15/classes.dex
+path.1=15/classes.dex
+base.0=/home/hatch/workspace/diziverse-app/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=0/classes.dex
