@@ -43,6 +43,13 @@ public class UrlUpdater {
         if (remote.equals(stored)) {
             return new Result(false, stored, null);
         }
+        // First run (no stored URL): trust the config endpoint directly.
+        // Validation happens when the main UI loads; if the tunnel is down
+        // the user sees an error there, not a dead setup screen.
+        if (stored == null) {
+            Prefs.setServerUrl(ctx, remote);
+            return new Result(true, remote, null);
+        }
         // Validate the new URL live before switching.
         if (validateUrl(remote)) {
             Prefs.setServerUrl(ctx, remote);
