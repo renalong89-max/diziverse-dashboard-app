@@ -11,7 +11,7 @@
         android:theme="@style/Theme.DiziVerse">
 
         <activity
-            android:name=".SetupActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".SetupActivity"
             android:exported="false" />
 
     </application>

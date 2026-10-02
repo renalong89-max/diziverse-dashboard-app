@@ -44,6 +44,14 @@ public class MainActivity extends Activity {
         if (Prefs.getServerUrl(this) == null) {
             // No stored URL yet — try auto-fetch from the stable endpoint first.
             // If that works, skip the manual setup screen entirely.
+            // Show a loading message while the background fetch runs.
+            TextView loading = new TextView(this);
+            loading.setText("Server se connect ho raha hai...");
+            loading.setTextSize(18);
+            loading.setGravity(Gravity.CENTER);
+            int pad = (int) (32 * getResources().getDisplayMetrics().density);
+            loading.setPadding(pad, pad * 6, pad, pad);
+            setContentView(loading);
             new Thread(() -> {
                 UrlUpdater.Result r = UrlUpdater.checkForUpdate(this);
                 runOnUiThread(() -> {
@@ -88,11 +96,13 @@ public class MainActivity extends Activity {
         findViewById(R.id.btnSettings).setOnClickListener(v -> openSettings());
 
         updateChannelButtons();
+        refresh();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (tvStatus == null) return; // views not built yet (first-run auto-connect)
         refresh();
         handler.postDelayed(autoRefresh, 30000);
     }
@@ -121,6 +131,7 @@ public class MainActivity extends Activity {
 
     /** Fetch /api/status and render the selected channel. */
     private void refresh() {
+        if (tvStatus == null) return; // views not built yet
         final String root = Prefs.root(this);
         final String key = Prefs.key(this);
         if (root == null || key == null) {
