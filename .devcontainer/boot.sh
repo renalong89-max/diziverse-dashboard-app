@@ -68,7 +68,7 @@ print(json.dumps({'ts': __import__('datetime').datetime.now(__import__('datetime
  'codespace': 'psychic-robot-p7vv5q7674j37xw6',
  'dashboard_url': '$DASH_URL', 'maint_url': '$MAINT_URL',
  'complete': bool('$DASH_URL' and '$MAINT_URL')}))")"
-B64="$(printf '%s' "$JSON" | base64 -w0 2>/dev/null || printf '%s' "$JSON" | base64)"
+B64="$(printf '%s' "$JSON" | base64 -w0 2>/dev/null || printf '%s' "$JSON" | base64 | tr -d '\n')"
 
 gh_push() {
   # $1 = b64 content, $2 = sha (empty for create)
